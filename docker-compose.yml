@@ -1,0 +1,17 @@
+version: '2'
+services:
+  app:
+    image:
+    restart: always
+    environment:
+      TG_TOKEN:
+      TG_CHANNEL:
+      TG_ADMIN:
+      VK_TOKEN:
+      VK_GROUP:
+    volumes:
+      - data:/data
+
+volumes:
+  data:
+    driver: local
