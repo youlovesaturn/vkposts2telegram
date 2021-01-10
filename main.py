@@ -31,7 +31,7 @@ def main():
 
     while True:
         post = vk.wall.get(
-            owner_id=vk_group,
+            owner_id=int(vk_group),
             filter='owner'
         )['items'][1]
 
