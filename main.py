@@ -1,4 +1,5 @@
 from telebot.types import InputMediaPhoto
+from traceback import format_exc
 from operator import itemgetter
 import telebot
 import vk_api
@@ -26,7 +27,6 @@ def get_quality(post=None):
 
 def main():
     vk_session = vk_api.VkApi(token=vk_token)
-
     vk = vk_session.get_api()
 
     while True:
@@ -38,6 +38,10 @@ def main():
         with open('data/latest_date.txt', 'r+') as f:
             old_date = int(f.read())
 
+        if post['marked_as_ads'] == 1:
+            time.sleep(600)
+            continue
+
         try:
             post_date = post['date']
 
@@ -46,9 +50,9 @@ def main():
                 with open('data/latest_date.txt', 'r+') as f:
                     f.seek(0)
                     f.write(str(post_date))
-        except Exception as e:
-            bot.send_message(chat_id=tg_admin, text=f'Something went wrong:\n{e}')
-        time.sleep(300)
+        except:
+            bot.send_message(chat_id=tg_admin, text=f'Something went wrong:\n{format_exc()}')
+        time.sleep(600)
 
 
 if __name__ == '__main__':
