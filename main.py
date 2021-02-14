@@ -50,6 +50,9 @@ def main():
                 with open('data/latest_date.txt', 'r+') as f:
                     f.seek(0)
                     f.write(str(post_date))
+        except KeyError:
+            time.sleep(600)
+            continue
         except:
             bot.send_message(chat_id=tg_admin, text=f'Something went wrong:\n{format_exc()}')
         time.sleep(600)
