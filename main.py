@@ -30,10 +30,14 @@ def main():
     vk = vk_session.get_api()
 
     while True:
-        post = vk.wall.get(
-            owner_id=int(vk_group),
-            filter='owner'
-        )['items'][1]
+        try: 
+            post = vk.wall.get(
+                owner_id=int(vk_group),
+                filter='owner'
+            )['items'][1]
+        except ConnectionError:
+            bot.send_message(chat_id=tg_admin, text=f'Connection Error:\n{format_exc()}')
+            time.sleep(600)
 
         with open('data/latest_date.txt', 'r+') as f:
             old_date = int(f.read())
